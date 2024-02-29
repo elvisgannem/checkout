@@ -145,4 +145,13 @@ class SaleTest extends TestCase
         $response = $this->put("/api/sales/{$nonExistentSaleId}", $payload);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
+
+    public function testDestroySaleShouldReturnA_SuccessMessage()
+    {
+        $response = $this->delete("/api/sales/{$this->sale->id}");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertExactJson([
+           'message' => 'Successfully canceled'
+        ]);
+    }
 }
