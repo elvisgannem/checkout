@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductsController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('products', ProductsController::class);
+Route::apiResource('sales', SalesController::class);
