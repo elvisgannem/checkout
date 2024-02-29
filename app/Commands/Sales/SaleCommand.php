@@ -19,17 +19,19 @@ class SaleCommand
     public function createSaleWithProducts(array $products): Collection
     {
         $sale = Sale::create([]);
-        $productSales = [];
         foreach ($products as $product) {
-            $productSales[] = [
-                'product_id' => $product['id'],
-                'sale_id' => $sale->id,
-                'product_amount' => $product['amount'],
-                'created_at' => Carbon::now()
-            ];
+            $sale->handleProduct($product, $sale->id);
         }
-        ProductSale::insert($productSales);
         return $this->saleQuery->getProductsFromSale($sale->id);
+    }
+
+    public function addProductsToSale(array $products, int $saleId): Collection
+    {
+        $sale = $this->saleQuery->find($saleId);
+        foreach ($products as $product) {
+            $sale->handleProduct($product, $saleId);
+        }
+        return $this->saleQuery->getProductsFromSale($saleId);
     }
 
     public function deleteSale(int $saleId): void
