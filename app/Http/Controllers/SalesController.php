@@ -31,6 +31,11 @@ class SalesController extends Controller
         return response()->json($this->saleCommand->createSaleWithProducts($request->products), 201);
     }
 
+    public function update(SaleFormRequest $request, int $saleId): JsonResponse
+    {
+        return response()->json($this->saleCommand->addProductsToSale($request->products, $saleId));
+    }
+
     public function destroy(int $saleId): JsonResponse
     {
         $this->saleCommand->deleteSale($saleId);
