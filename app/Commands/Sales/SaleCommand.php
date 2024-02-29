@@ -31,4 +31,9 @@ class SaleCommand
         ProductSale::insert($productSales);
         return $this->saleQuery->getProductsFromSale($sale->id);
     }
+
+    public function deleteSale(int $saleId): void
+    {
+        Sale::where('id', $saleId)->delete();
+    }
 }
