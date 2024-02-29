@@ -14,4 +14,11 @@ class Sale extends Model
     {
         return $this->belongsToMany(Product::class, 'product_sales')->withPivot('product_amount');
     }
+
+    public function calculateTotalAmount(): float
+    {
+        return round($this->products->reduce(function ($total, $product) {
+            return $total + ($product->price * $product->amount);
+        }, 0), 2);
+    }
 }
