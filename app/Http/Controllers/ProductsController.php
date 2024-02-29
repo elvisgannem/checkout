@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Queries\Product\ProductQuery;
+use App\Queries\Products\ProductQuery;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

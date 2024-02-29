@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Queries\Product;
+namespace App\Queries\Products;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
