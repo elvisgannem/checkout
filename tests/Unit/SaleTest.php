@@ -4,11 +4,14 @@ namespace Tests\Unit;
 
 use App\Models\Product;
 use App\Models\Sale;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class SaleTest extends TestCase
 {
-    public function testCalculateTotalAmount(): void
+    use RefreshDatabase;
+
+    public function testCalculateTotalAmount_CalculatesTotalAmountOfSaleCorrectly(): void
     {
         $sale = new Sale();
 
@@ -22,5 +25,20 @@ class SaleTest extends TestCase
         $total = $sale->calculateTotalAmount();
 
         $this->assertEquals(90.0, $total);
+    }
+
+    public function testHandleProduct_AttachesProductToSaleIfNotExisting_UpdatesProductAmountIfExisting()
+    {
+        $sale = Sale::factory()->create();
+        $product = Product::factory()->create();
+        $product['amount'] = 1;
+
+        $sale->handleProduct($product->toArray(), $sale->id);
+
+        $this->assertDatabaseHas('product_sales', [
+            'sale_id' => $sale->id,
+            'product_id' => $product['id'],
+            'product_amount' => $product['amount'],
+        ]);
     }
 }
