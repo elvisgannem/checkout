@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SaleQuery
 {
+    public function find(int $saleId): ?Sale
+    {
+        return Sale::findOrFail($saleId);
+    }
     public function getProductsFromSale(?int $saleId = null): Collection
     {
         $query = Sale::with(['products' => function ($query) {
