@@ -12,7 +12,8 @@ class ProductSale extends Model
 
     protected $fillable = [
         'product_id',
-        'sale_id'
+        'sale_id',
+        'product_amount'
     ];
 
     public function product(): BelongsTo
